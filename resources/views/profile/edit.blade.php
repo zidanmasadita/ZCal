@@ -35,6 +35,13 @@
             @csrf
             <input type="file" name="photo" id="profile_photo_input" accept="image/*" onchange="document.getElementById('photo-upload-form').submit()">
         </form>
+
+        @error('photo')
+            <div class="mt-3 p-2 bg-red-50 text-red-600 text-xs font-bold rounded-lg flex items-center gap-2 border border-red-100 relative z-10">
+                <i data-lucide="alert-circle" class="w-4 h-4 flex-shrink-0"></i>
+                <span>{{ $message }}</span>
+            </div>
+        @enderror
     </div>
 
     <!-- Profile Information Section -->
@@ -75,6 +82,33 @@
                 <i data-lucide="save" class="w-4 h-4"></i> Save Changes
             </button>
         </form>
+    </div>
+
+    <!-- Muse AI Section -->
+    <div class="card mb-6 bg-gradient-to-br from-green-50 to-emerald-50 border-emerald-100">
+        <div class="flex items-start gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-1">
+                <i data-lucide="bot" class="w-4 h-4 text-emerald-600"></i>
+            </div>
+            <div>
+                <h3 class="text-[15px] font-bold text-emerald-900">Connect to Muse AI on WhatsApp</h3>
+                <p class="text-[11px] text-emerald-700 font-medium leading-relaxed mt-1">Gunakan Muse AI untuk mencatat kalori langsung dari foto makanan via WhatsApp.</p>
+            </div>
+        </div>
+
+        <a href="{{ route('settings.muse.index') }}" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md shadow-emerald-600/20 transition-all flex items-center justify-center gap-2 mb-4">
+            <i data-lucide="settings" class="w-4 h-4"></i> Kelola Koneksi Muse
+        </a>
+        
+        <div class="bg-white/60 p-4 rounded-xl border border-emerald-100">
+            <h4 class="font-bold text-emerald-900 text-xs mb-2">Cara Connect:</h4>
+            <ol class="list-decimal list-inside text-[11px] text-emerald-800 space-y-1.5">
+                <li>Buka halaman kelola koneksi di atas.</li>
+                <li>Ikuti panduan mudah untuk membuat token.</li>
+                <li>Berikan token tersebut ke bot Muse AI di WhatsApp.</li>
+                <li>Kirim foto makanan ke Muse untuk mencatat kalori otomatis!</li>
+            </ol>
+        </div>
     </div>
 
     <!-- Target & Anggaran Section -->
@@ -191,7 +225,7 @@
     </div>
 
     <!-- Danger Zone: Logout -->
-    <div class="card mb-6 border-red-100 bg-red-50/30">
+    <div class="card mb-6 border-red-100 bg-red-50/30" x-data="{ showLogoutModal: false }">
         <div class="flex items-start gap-3 mb-4">
             <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-1">
                 <i data-lucide="log-out" class="w-4 h-4 text-red-600"></i>
@@ -202,12 +236,53 @@
             </div>
         </div>
 
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md shadow-red-600/20 transition-all flex items-center justify-center gap-2 mt-2">
-                <i data-lucide="log-out" class="w-4 h-4"></i> Keluar
-            </button>
-        </form>
+        <button type="button" @click="showLogoutModal = true" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md shadow-red-600/20 transition-all flex items-center justify-center gap-2 mt-2">
+            <i data-lucide="log-out" class="w-4 h-4"></i> Keluar
+        </button>
+
+        <!-- Logout Confirmation Modal -->
+        <template x-teleport="body">
+            <div x-show="showLogoutModal" class="fixed inset-0 z-[100] overflow-y-auto" style="display: none;" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                    <!-- Background overlay -->
+                    <div x-show="showLogoutModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-sm transition-opacity" @click="showLogoutModal = false" aria-hidden="true"></div>
+
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+                    <!-- Modal panel -->
+                    <div x-show="showLogoutModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="inline-block align-bottom bg-white rounded-2xl text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-gray-100">
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 rounded-t-2xl">
+                            <div class="sm:flex sm:items-start">
+                                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-50 sm:mx-0 sm:h-10 sm:w-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-red-600">
+                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                        <polyline points="16 17 21 12 16 7"></polyline>
+                                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                                    </svg>
+                                </div>
+                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                    <h3 class="text-lg leading-6 font-bold text-gray-900" id="modal-title">Konfirmasi Keluar</h3>
+                                    <div class="mt-2">
+                                        <p class="text-sm text-gray-500 leading-relaxed">Apakah Anda yakin ingin keluar dari ZCal? Anda perlu login kembali untuk mengakses data.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse rounded-b-2xl border-t border-gray-100">
+                            <form method="POST" action="{{ route('logout') }}" class="w-full sm:w-auto sm:ml-3" onsubmit="const b=this.querySelector('button[type=submit]'); if(b){b.disabled=true; b.innerHTML='Keluar...';}">
+                                @csrf
+                                <button type="submit" class="w-full inline-flex justify-center rounded-xl border border-transparent shadow-sm px-4 py-2.5 bg-red-600 text-base font-bold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:w-auto sm:text-sm transition-colors">
+                                    Ya, Keluar
+                                </button>
+                            </form>
+                            <button type="button" @click="showLogoutModal = false" class="mt-3 w-full inline-flex justify-center rounded-xl border border-gray-300 shadow-sm px-4 py-2.5 bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
+                                Batal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

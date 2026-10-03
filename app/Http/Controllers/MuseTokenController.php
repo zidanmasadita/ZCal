@@ -15,14 +15,17 @@ class MuseTokenController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        if (auth()->user()->tokens()->count() >= 3) {
+            return back()->with('error', 'Anda sudah mencapai batas maksimal 3 token aktif.');
+        }
 
-        $token = auth()->user()->createToken($request->name, ['food-log:write']);
+        $count = auth()->user()->tokens()->count() + 1;
+        $name = 'Token ' . $count . ' — dibuat ' . now()->translatedFormat('j M Y, H.i');
 
-        return redirect()->route('settings.muse.index')
-            ->with('success', 'Token berhasil dibuat. Simpan token ini karena tidak akan ditampilkan lagi!')
+        $token = auth()->user()->createToken($name, ['food-log:write']);
+
+        return back()
+            ->with('success', 'Token berhasil dibuat!')
             ->with('plainTextToken', $token->plainTextToken);
     }
 
@@ -31,6 +34,6 @@ class MuseTokenController extends Controller
         $token = auth()->user()->tokens()->findOrFail($id);
         $token->delete();
 
-        return redirect()->route('settings.muse.index')->with('success', 'Token berhasil dicabut.');
+        return back()->with('success', 'Token berhasil dicabut.');
     }
 }

@@ -55,8 +55,12 @@
             </button>
 
             <div class="sidebar-user">
-                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium">
-                    {{ substr(Auth::user()->name, 0, 1) }}
+                <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center overflow-hidden border border-gray-200 flex-shrink-0">
+                    @if(Auth::user()->profile_photo_path)
+                        <img src="{{ Storage::url(Auth::user()->profile_photo_path) }}" class="w-full h-full object-cover" alt="Profile">
+                    @else
+                        <img src="/images/illustration/mascot-apel-datar.png" class="w-full h-full object-contain p-0.5" alt="Profile">
+                    @endif
                 </div>
                 <div class="flex-1 min-w-0">
                     <p class="text-sm font-medium text-gray-900 truncate">{{ Auth::user()->name }}</p>
@@ -116,16 +120,12 @@
                 
                 <div class="grid grid-cols-2 gap-4">
                     <a href="{{ route('transactions.create') }}" class="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-blue-100 bg-blue-50 hover:bg-blue-100 transition-colors">
-                        <div class="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center">
-                            <i data-lucide="arrow-down-up" class="w-6 h-6"></i>
-                        </div>
+                        <img src="{{ asset('images/icon/icon-transaksi.png') }}" class="w-12 h-12 object-contain drop-shadow-sm" alt="Transaksi">
                         <span class="font-medium text-sm text-blue-900">Transaksi</span>
                     </a>
                     
                     <a href="{{ route('food-entries.create') }}" class="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-green-100 bg-green-50 hover:bg-green-100 transition-colors">
-                        <div class="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center">
-                            <i data-lucide="utensils" class="w-6 h-6"></i>
-                        </div>
+                        <img src="{{ asset('images/icon/icon-makanminum.png') }}" class="w-12 h-12 object-contain drop-shadow-sm" alt="Makanan">
                         <span class="font-medium text-sm text-green-900">Makanan</span>
                     </a>
                 </div>
