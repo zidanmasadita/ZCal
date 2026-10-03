@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <link rel="manifest" href="/manifest.json">
+        <link rel="manifest" href="/manifest.json?v=2">
         <meta name="theme-color" content="#1c1c1e">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,8 +15,8 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         
         <script src="https://unpkg.com/lucide@latest"></script>
-        <link rel="icon" href="{{ asset('images/icon/icon-uang-masuk.png') }}" type="image/png">
-        <link rel="apple-touch-icon" href="{{ asset('images/icon/icon-uang-masuk.png') }}">
+        <link rel="icon" href="{{ asset('images/icon/icon-uang-masuk.png') }}?v=2" type="image/png">
+        <link rel="apple-touch-icon" href="{{ asset('images/icon/icon-uang-masuk.png') }}?v=2">
         <meta name="apple-mobile-web-app-title" content="ZCal">
     </head>
     <body class="antialiased bg-gray-50 overflow-hidden h-[100dvh] w-full fixed inset-0 touch-none overscroll-none">
