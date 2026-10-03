@@ -1,10 +1,10 @@
 <x-blank-layout>
-    <div class="min-h-[100dvh] w-full bg-cover bg-center bg-no-repeat relative flex flex-col" style="background-image: url('/images/assets/bg-uang.png');">
+    <div class="min-h-[100dvh] w-full overflow-x-hidden bg-cover bg-center bg-no-repeat relative flex flex-col" style="background-image: url('/images/assets/bg-uang.png');">
         <!-- Overlay -->
         <div class="absolute inset-0 bg-gradient-to-b from-blue-50/90 via-blue-50/50 to-blue-50 pointer-events-none"></div>
     <x-header-back title="Catat Transaksi" backUrl="{{ route('dashboard') }}" />
 
-    <div class="px-5 pb-8 pt-2 relative flex-1 flex flex-col overflow-y-auto">
+    <div class="px-5 pb-8 pt-2 relative flex-1 flex flex-col overflow-y-auto overflow-x-hidden">
         <!-- Floating Decorator -->
         <div class="absolute top-10 left-0 w-32 h-32 bg-blue-200 rounded-full blur-3xl opacity-40 -ml-10 pointer-events-none z-0"></div>
         <div class="absolute bottom-20 right-0 w-40 h-40 bg-pink-200 rounded-full blur-3xl opacity-40 -mr-10 pointer-events-none z-0"></div>
