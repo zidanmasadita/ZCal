@@ -24,7 +24,7 @@
         <!-- Desktop Sidebar -->
         <aside class="sidebar hidden lg:flex">
             <div class="sidebar-logo">
-                <div class="w-8 h-8 rounded-lg bg-gray-900 flex items-center justify-center text-white font-bold">Z</div>
+                <img src="{{ asset('images/icon/icon-uang-masuk.png') }}" class="w-8 h-8 object-contain drop-shadow-sm" alt="Logo">
                 <span class="font-bold text-lg">ZCal</span>
             </div>
             
