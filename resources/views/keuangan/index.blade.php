@@ -43,6 +43,9 @@
         @foreach($wallets as $wallet)
             <a href="{{ route('keuangan.index', ['wallet_id' => $wallet->id]) }}" class="chip flex-shrink-0 text-sm {{ $activeWalletId == $wallet->id ? 'chip-finance' : 'chip-neutral' }}">{{ $wallet->name }}</a>
         @endforeach
+        <a href="{{ route('wallets.index') }}" class="chip flex-shrink-0 text-sm chip-neutral !border-dashed !border-gray-300 hover:!border-gray-400">
+            <i data-lucide="settings-2" class="w-4 h-4"></i> Kelola
+        </a>
     </div>
 
     <!-- Riwayat Transaksi -->

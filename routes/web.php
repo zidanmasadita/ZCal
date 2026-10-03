@@ -22,8 +22,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/food-entries/create', [\App\Http\Controllers\FoodEntryController::class, 'create'])->name('food-entries.create');
     Route::post('/food-entries', [\App\Http\Controllers\FoodEntryController::class, 'store'])->name('food-entries.store');
 
+    Route::get('/wallets', [\App\Http\Controllers\WalletController::class, 'index'])->name('wallets.index');
     Route::get('/wallets/create', [\App\Http\Controllers\WalletController::class, 'create'])->name('wallets.create');
     Route::post('/wallets', [\App\Http\Controllers\WalletController::class, 'store'])->name('wallets.store');
+    Route::delete('/wallets/{id}', [\App\Http\Controllers\WalletController::class, 'destroy'])->name('wallets.destroy');
 
     Route::get('/settings/muse', [\App\Http\Controllers\MuseTokenController::class, 'index'])->name('settings.muse.index');
     Route::post('/settings/muse', [\App\Http\Controllers\MuseTokenController::class, 'store'])->name('settings.muse.store');

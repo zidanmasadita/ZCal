@@ -15,8 +15,7 @@ class TransactionController extends Controller
         $user = auth()->user();
         if ($user->wallets()->count() === 0) {
             $user->wallets()->createMany([
-                ['name' => 'Tunai', 'balance' => 0],
-                ['name' => 'BCA', 'balance' => 0]
+                ['name' => 'Tunai', 'balance' => 0]
             ]);
         }
         if ($user->categories()->count() === 0) {

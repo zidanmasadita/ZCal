@@ -8,8 +8,20 @@
     <img src="/images/icon/icon-daun.png" class="fixed top-32 right-10 w-8 opacity-60 rotate-45 -z-10" alt="">
     <div class="fixed top-0 left-0 w-full h-64 bg-green-50 mix-blend-multiply filter blur-3xl opacity-60 -z-10"></div>
 
+    @php 
+        $percentage = min(($caloriesToday / max(Auth::user()->daily_calories, 1)) * 100, 100); 
+        $bgClass = 'bg-[#EF4444] shadow-[0_15px_30px_-10px_rgba(239,68,68,0.4)]'; // Merah
+        $mascotImg = '/images/illustration/mascot-apel-sedih.png';
+        if ($percentage > 25 && $percentage <= 75) {
+            $bgClass = 'bg-[#3B82F6] shadow-[0_15px_30px_-10px_rgba(59,130,246,0.4)]'; // Biru
+            $mascotImg = '/images/illustration/mascot-apel-datar.png';
+        } elseif ($percentage > 75) {
+            $bgClass = 'bg-[#30C566] shadow-[0_15px_30px_-10px_rgba(48,197,102,0.4)]'; // Hijau
+            $mascotImg = '/images/illustration/mascot-apel-ceria.png';
+        }
+    @endphp
     <!-- Top Card: Kalori -->
-    <div class="bg-[#30C566] rounded-[32px] pt-6 px-5 pb-5 shadow-[0_15px_30px_-10px_rgba(48,197,102,0.4)] relative mb-6 overflow-hidden">
+    <div class="{{ $bgClass }} rounded-[32px] pt-6 px-5 pb-5 relative mb-6 overflow-hidden transition-all duration-500">
         
         <!-- Decoration -->
         <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/20 rounded-full blur-2xl z-0"></div>
@@ -29,7 +41,6 @@
                 
                 <!-- Horizontal Progress Bar -->
                 <div class="w-full h-4 bg-black/10 rounded-full overflow-hidden p-0.5 mt-1 shadow-inner backdrop-blur-md">
-                    @php $percentage = min(($caloriesToday / max(Auth::user()->daily_calories, 1)) * 100, 100); @endphp
                     <div class="h-full bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)] relative overflow-hidden" style="width:{{ $percentage }}%">
                         <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent w-full h-full animate-[shimmer_2s_infinite]"></div>
                     </div>
@@ -71,24 +82,10 @@
         </div>
 
         <!-- Mascot -->
-        <img src="/images/illustration/mascot-apel-ceria.png" class="absolute -left-4 sm:-left-2 top-2 sm:top-0 w-[140px] sm:w-[190px] object-contain z-20 drop-shadow-[0_10px_15px_rgba(0,0,0,0.3)]" alt="Apple Mascot">
+        <img src="{{ $mascotImg }}" class="absolute -left-4 sm:-left-2 top-2 sm:top-0 w-[140px] sm:w-[190px] object-contain z-20 drop-shadow-[0_10px_15px_rgba(0,0,0,0.3)] transition-all duration-500" alt="Apple Mascot">
     </div>
 
-    <!-- Notifikasi Verifikasi WA -->
-    <div class="bg-[#FFFAF0] border border-orange-100 rounded-[24px] p-4 flex items-center justify-between gap-3 mb-6 relative overflow-hidden shadow-sm">
-        <div class="flex-1 relative z-10 pl-1 py-1">
-            <h4 class="text-[13px] font-bold text-orange-800 flex items-center gap-2 mb-1.5">
-                <div class="w-6 h-6 bg-orange-200 text-orange-700 rounded-full flex items-center justify-center font-black">!</div>
-                1 Entri Butuh Verifikasi
-            </h4>
-            <p class="text-[11px] text-orange-700/80 font-medium leading-relaxed max-w-[200px]">
-                Sistem mendeteksi makanan dari WhatsApp dengan tingkat kepercayaan rendah. Klik untuk meninjau.
-            </p>
-        </div>
-        <img src="/images/illustration/mascot-apel-info.png" class="w-24 object-contain relative z-10 -mr-2 drop-shadow-md" alt="">
-        <i data-lucide="chevron-right" class="w-4 h-4 text-orange-300 absolute right-3 top-1/2 -translate-y-1/2"></i>
-    </div>
-
+    <!-- Spacer / No Notif -->
     <!-- Riwayat Makanan -->
     <h3 class="text-[17px] font-extrabold mb-4 px-1 text-gray-800">Hari Ini</h3>
     

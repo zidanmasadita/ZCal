@@ -57,7 +57,7 @@
                 <div class="flex overflow-x-auto gap-2 pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     @foreach($wallets as $index => $wallet)
                         <label class="cursor-pointer flex-shrink-0 group">
-                            <input type="radio" name="wallet_id" value="{{ $wallet->id }}" class="peer sr-only" {{ $index === 0 ? 'checked' : '' }} required>
+                            <input type="radio" name="wallet_id" value="{{ $wallet->id }}" class="peer sr-only wallet-radio" data-balance-raw="{{ $wallet->balance }}" data-balance="{{ number_format($wallet->balance, 0, ',', '.') }}" {{ $index === 0 ? 'checked' : '' }} required>
                             <div class="px-4 py-2.5 rounded-full border-2 border-gray-100 bg-gray-50 text-sm font-bold text-gray-500 peer-checked:border-indigo-500 peer-checked:bg-indigo-50 peer-checked:text-indigo-700 transition-all shadow-sm active:scale-95">
                                 {{ $wallet->name }}
                             </div>
@@ -66,6 +66,12 @@
                     <a href="{{ route('wallets.create') }}" class="px-4 py-2.5 rounded-full border-2 border-dashed border-gray-300 bg-transparent text-sm font-bold text-gray-400 hover:text-gray-600 hover:border-gray-400 transition-all shadow-sm flex-shrink-0 flex items-center gap-1 active:scale-95">
                         <i data-lucide="plus" class="w-4 h-4"></i> Baru
                     </a>
+                </div>
+                
+                <!-- Info Sisa Saldo -->
+                <div id="wallet-balance-info" class="mt-2.5 bg-indigo-50/80 border border-indigo-100 rounded-full px-4 py-2 flex justify-between items-center hidden shadow-sm backdrop-blur-sm transition-all">
+                    <span id="wallet-balance-label" class="text-[11px] font-bold text-indigo-400 flex items-center gap-1.5"><i data-lucide="wallet" class="w-3.5 h-3.5"></i> Sisa Saldo</span>
+                    <span id="wallet-balance-amount" class="text-[13px] font-black text-indigo-700 transition-colors">Rp 0</span>
                 </div>
             </div>
 
@@ -115,19 +121,94 @@
 
             updateCategories();
 
-            // Auto-format currency
+            // Utilities
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+
+            // Dompet Balance Logic
+            const walletRadios = document.querySelectorAll('.wallet-radio');
+            const balanceInfo = document.getElementById('wallet-balance-info');
+            const balanceAmount = document.getElementById('wallet-balance-amount');
+            const balanceLabel = document.getElementById('wallet-balance-label');
             const amountInput = document.getElementById('amount');
+
+            function calculateRealtimeBalance() {
+                const selectedWallet = document.querySelector('.wallet-radio:checked');
+                const selectedType = document.querySelector('input[name="type"]:checked').value;
+                const inputValue = parseInt(amountInput.value.replace(/[^0-9]/g, '')) || 0;
+
+                if (selectedWallet) {
+                    const originalBalance = parseInt(selectedWallet.getAttribute('data-balance-raw')) || 0;
+                    const originalBalanceStr = selectedWallet.getAttribute('data-balance');
+                    
+                    if (inputValue > 0) {
+                        let newBalance = originalBalance;
+                        if (selectedType === 'expense') {
+                            newBalance -= inputValue;
+                        } else if (selectedType === 'income') {
+                            newBalance += inputValue;
+                        }
+                        
+                        balanceLabel.innerHTML = `<i data-lucide="wallet" class="w-3.5 h-3.5"></i> Menjadi`;
+                        balanceAmount.textContent = 'Rp ' + newBalance.toLocaleString('id-ID');
+                        
+                        // Indicate if negative
+                        if (newBalance < 0) {
+                            balanceAmount.classList.add('text-red-500');
+                            balanceAmount.classList.remove('text-indigo-700');
+                        } else {
+                            balanceAmount.classList.remove('text-red-500');
+                            balanceAmount.classList.add('text-indigo-700');
+                        }
+                    } else {
+                        // Reset to original if no input
+                        balanceLabel.innerHTML = `<i data-lucide="wallet" class="w-3.5 h-3.5"></i> Sisa Saldo`;
+                        balanceAmount.textContent = 'Rp ' + originalBalanceStr;
+                        balanceAmount.classList.remove('text-red-500');
+                        balanceAmount.classList.add('text-indigo-700');
+                    }
+                    
+                    lucide.createIcons(); // Re-initialize icons inside label
+                    balanceInfo.classList.remove('hidden');
+                } else {
+                    balanceInfo.classList.add('hidden');
+                }
+            }
+
+            const debouncedCalculate = debounce(calculateRealtimeBalance, 300);
+
+            // Auto-format currency & Trigger Calculation
             amountInput.addEventListener('input', function(e) {
-                // Remove non-numeric characters
                 let value = this.value.replace(/[^0-9]/g, '');
-                
-                // Format with dots
                 if (value !== '') {
                     value = parseInt(value, 10).toLocaleString('id-ID');
                 }
-                
                 this.value = value;
+                
+                debouncedCalculate();
             });
+
+            walletRadios.forEach(radio => {
+                radio.addEventListener('change', calculateRealtimeBalance);
+            });
+            
+            typeRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    updateCategories();
+                    calculateRealtimeBalance();
+                });
+            });
+
+            calculateRealtimeBalance(); // Run on load
         });
     </script>
 </x-blank-layout>
