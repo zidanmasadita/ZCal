@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Transaksi — Wireframe</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #e0e0e0; display: flex; justify-content: center; padding: 20px 0; }
+        .wf-screen { width: 375px; min-height: 667px; background: #f5f5f5; border: 2px dashed #ccc; position: relative; display: flex; flex-direction: column; }
+        .wf-nav { background: #e8e8e8; border-bottom: 1px dashed #ccc; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 16px; }
+        .wf-content { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 16px; }
+        .wf-input { border: 1px dashed #ccc; padding: 12px; font-size: 16px; border-radius: 8px; background: #fff; width: 100%; }
+        .wf-button { background: #ccc; border: 1px dashed #999; padding: 16px; font-size: 16px; font-weight: 600; color: #444; border-radius: 12px; cursor: pointer; text-align: center; }
+        a.wf-link { color: inherit; text-decoration: none; display: contents; }
+        .chip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .chip { background: #fff; border: 1px dashed #ccc; border-radius: 8px; padding: 8px; text-align: center; font-size: 10px; }
+        .chip.active { background: #ccc; }
+        .segmented { display: flex; background: #ddd; border-radius: 8px; overflow: hidden; }
+        .seg-btn { flex: 1; padding: 12px; text-align: center; font-size: 14px; }
+        .seg-btn.active { background: #fff; border: 1px solid #ccc; border-radius: 8px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="wf-screen">
+        <div class="wf-nav">
+            <a href="beranda.html" class="wf-link"><span style="color: #666;">Batal</span></a>
+            <span style="font-weight: 600;">Catat Transaksi</span>
+            <span style="width: 35px;"></span> <!-- Spacer -->
+        </div>
+        <div class="wf-content">
+            <div class="segmented">
+                <div class="seg-btn active">Pengeluaran</div>
+                <div class="seg-btn">Pemasukan</div>
+            </div>
+            
+            <input type="text" class="wf-input" placeholder="Rp 0" style="font-size: 24px; text-align: center; padding: 20px; font-weight: bold;">
+            
+            <div>
+                <div style="font-size: 14px; margin-bottom: 8px; color: #666;">Kategori</div>
+                <div class="chip-grid">
+                    <div class="chip active"><div style="width:24px; height:24px; background:#999; margin:0 auto 4px auto;"></div>Makanan</div>
+                    <div class="chip"><div style="width:24px; height:24px; background:#eee; margin:0 auto 4px auto;"></div>Transport</div>
+                    <div class="chip"><div style="width:24px; height:24px; background:#eee; margin:0 auto 4px auto;"></div>Belanja</div>
+                    <div class="chip"><div style="width:24px; height:24px; background:#eee; margin:0 auto 4px auto;"></div>Lainnya</div>
+                </div>
+            </div>
+            
+            <div>
+                <div style="font-size: 14px; margin-bottom: 8px; color: #666;">Dompet</div>
+                <input type="text" class="wf-input" value="BCA">
+            </div>
+            
+            <div>
+                <div style="font-size: 14px; margin-bottom: 8px; color: #666;">Tanggal</div>
+                <input type="text" class="wf-input" value="3 Okt 2026, 12:45">
+            </div>
+            
+            <div>
+                <div style="font-size: 14px; margin-bottom: 8px; color: #666;">Catatan</div>
+                <input type="text" class="wf-input" placeholder="Opsional">
+            </div>
+        </div>
+        <div style="padding: 16px; background: #fff; border-top: 1px dashed #ccc;">
+            <a href="keuangan.html" class="wf-link">
+                <div class="wf-button">Simpan</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

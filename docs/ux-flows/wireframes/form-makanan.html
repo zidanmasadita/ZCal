@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Makanan — Wireframe</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #e0e0e0; display: flex; justify-content: center; padding: 20px 0; }
+        .wf-screen { width: 375px; min-height: 667px; background: #f5f5f5; border: 2px dashed #ccc; position: relative; display: flex; flex-direction: column; }
+        .wf-nav { background: #e8e8e8; border-bottom: 1px dashed #ccc; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 16px; }
+        .wf-content { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto;}
+        .wf-input { border: 1px dashed #ccc; padding: 12px; font-size: 16px; border-radius: 8px; background: #fff; width: 100%; }
+        .wf-button { background: #ccc; border: 1px dashed #999; padding: 16px; font-size: 16px; font-weight: 600; color: #444; border-radius: 12px; cursor: pointer; text-align: center; }
+        a.wf-link { color: inherit; text-decoration: none; display: contents; }
+        .makro-row { display: flex; gap: 8px; }
+        .makro-row .wf-input { flex: 1; }
+    </style>
+</head>
+<body>
+    <div class="wf-screen">
+        <div class="wf-nav">
+            <a href="kalori.html" class="wf-link"><span style="color: #666;">Batal</span></a>
+            <span style="font-weight: 600;">Catat Makanan</span>
+            <span style="width: 35px;"></span>
+        </div>
+        <div class="wf-content">
+            <div style="background: #fff8e1; border: 1px solid orange; padding: 12px; border-radius: 8px; font-size: 12px;">
+                Sumber: WhatsApp (Confidence Rendah). Mohon tinjau.
+            </div>
+            
+            <div>
+                <div style="font-size: 14px; margin-bottom: 8px; color: #666;">Nama Makanan</div>
+                <input type="text" class="wf-input" value="Nasi Ayam">
+            </div>
+            
+            <div>
+                <div style="font-size: 14px; margin-bottom: 8px; color: #666;">Porsi (gram / opsional)</div>
+                <input type="text" class="wf-input" value="±250g">
+            </div>
+            
+            <div>
+                <div style="font-size: 14px; margin-bottom: 8px; color: #666;">Kalori</div>
+                <input type="text" class="wf-input" value="540 kkal" style="font-size: 20px; font-weight: bold;">
+            </div>
+            
+            <div>
+                <div style="font-size: 14px; margin-bottom: 8px; color: #666;">Makronutrisi (opsional)</div>
+                <div class="makro-row">
+                    <input type="text" class="wf-input" placeholder="Protein (g)" value="25">
+                    <input type="text" class="wf-input" placeholder="Karbo (g)" value="50">
+                    <input type="text" class="wf-input" placeholder="Lemak (g)" value="10">
+                </div>
+            </div>
+            
+            <div>
+                <div style="font-size: 14px; margin-bottom: 8px; color: #666;">Waktu Makan</div>
+                <input type="text" class="wf-input" value="Makan Siang">
+            </div>
+            
+            <div>
+                <div style="font-size: 14px; margin-bottom: 8px; color: #666;">Foto (Opsional)</div>
+                <div style="width: 100px; height: 100px; background: #ddd; border-radius: 8px; display: flex; align-items: center; justify-content: center;">Foto WA</div>
+            </div>
+        </div>
+        <div style="padding: 16px; background: #fff; border-top: 1px dashed #ccc;">
+            <a href="kalori.html" class="wf-link">
+                <div class="wf-button">Simpan Entri</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

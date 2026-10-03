@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-nutrition: #16A34A;
+    --color-nutrition-soft: #DCFCE7;
+    --color-finance: #2563EB;
+    --color-finance-soft: #DBEAFE;
+    --color-ink: #111827;
+    --color-ink-2: #6B7280;
+    --color-line: #E5E7EB;
+    --color-surface: #FFFFFF;
+    --color-bg: #F9FAFB;
+    --color-danger: #DC2626;
+    --color-warning: #D97706;
+}
+
+@layer base {
+    body {
+        font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        background-color: var(--color-bg);
+        color: var(--color-ink);
+    }
+}
+
+@layer components {
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+        @apply fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 z-40 flex flex-col;
+    }
+    .sidebar-logo {
+        @apply flex items-center gap-3 px-6 py-5 border-b border-gray-100;
+    }
+    .sidebar-nav {
+        @apply flex-1 px-3 py-4 flex flex-col gap-1;
+    }
+    .sidebar-link {
+        @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-all duration-150;
+    }
+    .sidebar-link.active {
+        @apply bg-gray-100 text-gray-900;
+    }
+    .sidebar-link.active-finance {
+        @apply bg-blue-50 text-blue-700;
+    }
+    .sidebar-link.active-nutrition {
+        @apply bg-green-50 text-green-700;
+    }
+    .sidebar-add-btn {
+        @apply mx-3 mb-4 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-150;
+        background: linear-gradient(135deg, var(--color-finance), var(--color-nutrition));
+    }
+    .sidebar-add-btn:hover {
+        @apply opacity-90 shadow-lg scale-[1.01];
+    }
+    .sidebar-user {
+        @apply px-4 py-4 border-t border-gray-100 flex items-center gap-3;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .main-content {
+        @apply lg:ml-64 min-h-screen relative z-10;
+    }
+    .page-header {
+        @apply bg-transparent px-6 pt-12 pb-4 sticky top-0 z-30;
+    }
+    .page-body {
+        @apply px-6 py-4;
+    }
+
+    /* ===== CARDS ===== */
+    .card {
+        @apply bg-white/80 backdrop-blur-md rounded-[24px] border border-white/50 p-5;
+        box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,1);
+    }
+    .card-title {
+        @apply text-[15px] font-bold text-gray-800 mb-1 flex items-center gap-2;
+    }
+    .card-value {
+        @apply text-[32px] font-extrabold tabular-nums tracking-tight;
+        color: var(--color-ink);
+    }
+
+    /* ===== STAT CARDS ===== */
+    .stat-card {
+        @apply card flex flex-col;
+    }
+    .stat-badge {
+        @apply inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full;
+    }
+
+    /* ===== TRANSACTION LIST ===== */
+    .tx-item {
+        @apply flex items-center gap-4 py-3.5 px-4 mb-3 bg-white/70 backdrop-blur-sm rounded-[20px] border border-white/60 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)];
+    }
+    .tx-icon {
+        @apply w-12 h-12 rounded-[14px] flex items-center justify-center flex-shrink-0;
+    }
+    .tx-amount-expense {
+        @apply font-bold tabular-nums text-[15px];
+        color: var(--color-danger);
+    }
+    .tx-amount-income {
+        @apply font-bold tabular-nums text-[15px];
+        color: var(--color-nutrition);
+    }
+
+    /* ===== PROGRESS RING ===== */
+    .progress-ring-track {
+        fill: none;
+        stroke: white;
+        stroke-width: 14;
+    }
+    .progress-ring-fill {
+        fill: none;
+        stroke: var(--color-nutrition);
+        stroke-width: 14;
+        stroke-linecap: round;
+        transform-origin: center;
+        transform: rotate(-90deg);
+        transition: stroke-dashoffset 0.6s ease;
+    }
+
+    /* ===== BUDGET BAR ===== */
+    .budget-bar-track {
+        @apply h-2.5 bg-white/20 rounded-full overflow-hidden;
+    }
+    .budget-bar-fill {
+        @apply h-full bg-blue-500 rounded-full transition-all duration-500;
+    }
+
+    /* ===== CHIPS ===== */
+    .chip {
+        @apply inline-flex items-center gap-1.5 text-[13px] font-bold px-4 py-2 rounded-full border cursor-pointer select-none transition-all whitespace-nowrap;
+    }
+    .chip-finance {
+        @apply border-blue-500 text-white bg-blue-500 shadow-md shadow-blue-500/20;
+    }
+    .chip-nutrition {
+        @apply border-green-500 text-white bg-green-500 shadow-md shadow-green-500/20;
+    }
+    .chip-neutral {
+        @apply border-gray-100 text-gray-600 bg-white hover:bg-gray-50 shadow-sm;
+    }
+
+    /* ===== MOBILE BOTTOM BAR ===== */
+    .bottom-bar {
+        @apply lg:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-gray-100/50 flex items-center justify-around px-2 z-40 rounded-t-[32px] pb-5 pt-3 shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.05)];
+    }
+    .bottom-bar-item {
+        @apply flex flex-col items-center gap-1 text-[11px] font-medium text-gray-400 px-3 py-1 transition-colors;
+    }
+    .bottom-bar-item.active {
+        @apply text-green-600;
+    }
+    .bottom-bar-fab {
+        @apply w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg shadow-green-600/30 transition-transform hover:scale-105 active:scale-95;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+    }
+}
