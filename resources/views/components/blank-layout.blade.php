@@ -16,6 +16,8 @@
         
         <script src="https://unpkg.com/lucide@latest"></script>
         <link rel="icon" href="{{ asset('images/icon/icon-uang-masuk.png') }}" type="image/png">
+        <link rel="apple-touch-icon" href="{{ asset('images/icon/icon-uang-masuk.png') }}">
+        <meta name="apple-mobile-web-app-title" content="ZCal">
     </head>
     <body class="antialiased bg-gray-50 overflow-hidden h-[100dvh] w-full fixed inset-0 touch-none overscroll-none">
         

@@ -14,6 +14,8 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <link rel="icon" href="{{ asset('images/icon/icon-uang-masuk.png') }}" type="image/png">
+        <link rel="apple-touch-icon" href="{{ asset('images/icon/icon-uang-masuk.png') }}">
+        <meta name="apple-mobile-web-app-title" content="{{ config('app.name', 'ZCal') }}">
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
